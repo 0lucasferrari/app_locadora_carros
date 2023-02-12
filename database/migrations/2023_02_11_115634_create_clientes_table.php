@@ -15,9 +15,11 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
+            $table->string('nome', 30);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
