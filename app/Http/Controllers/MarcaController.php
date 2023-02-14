@@ -61,7 +61,11 @@ class MarcaController extends Controller
     //Utilizando injeção de Model
     public function show($id)
     {
-        return $this->marca->find($id);
+        $marca = $this->marca->find($id);
+        if ($marca === null) {
+            return ['erro' => 'Recurso pesquisado não encontrado'];
+        }
+        return $marca;
     }
 
     /**
@@ -83,6 +87,11 @@ class MarcaController extends Controller
         $marca->getAttributes() // Dados antigos;
         */
         $marca = $this->marca->find($id);
+
+        if ($marca === null) {
+            return ['erro' => 'Recurso solicitado não encontrado'];
+        }
+
         $marca->update($request->all());
         return $marca;
     }
@@ -101,6 +110,11 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         $marca = $this->marca->find($id);
+
+        if ($marca === null) {
+            return ['erro' => 'Recurso solicitado não encontrado'];
+        }
+
         $marca->delete();
         return ['message' => 'A marca foi removida com sucesso.'];
     }
