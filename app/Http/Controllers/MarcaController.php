@@ -63,7 +63,7 @@ class MarcaController extends Controller
     {
         $marca = $this->marca->find($id);
         if ($marca === null) {
-            return ['erro' => 'Recurso pesquisado não encontrado'];
+            return response()->json(['erro' => 'Recurso pesquisado não encontrado'], 404);
         }
         return $marca;
     }
@@ -89,7 +89,7 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if ($marca === null) {
-            return ['erro' => 'Recurso solicitado não encontrado'];
+            return response()->json(['erro' => 'Recurso solicitado não encontrado'], 404);
         }
 
         $marca->update($request->all());
@@ -112,7 +112,7 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if ($marca === null) {
-            return ['erro' => 'Recurso solicitado não encontrado'];
+            return response()->json(['erro' => 'Recurso solicitado não encontrado'], 404);
         }
 
         $marca->delete();
