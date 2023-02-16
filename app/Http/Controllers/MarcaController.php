@@ -95,6 +95,7 @@ class MarcaController extends Controller
             return response()->json(['erro' => 'Recurso solicitado não encontrado'], 404);
         }
 
+        $request->validate($marca->rules(), $marca->feedback());
         $marca->update($request->all());
         return $marca;
     }
