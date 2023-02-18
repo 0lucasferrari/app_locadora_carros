@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Marca extends Model
 {
@@ -12,9 +14,10 @@ class Marca extends Model
 
     public function rules()
     {
+        $id = $this->id === null ? 0 : $this->id;
         return [
-            'nome' => 'required|unique:marcas,nome,' . $this->id . '|min:3',
-            'imagem' => 'required'
+            'nome' => 'required|unique:marcas,nome,' . $id . '|min:3',
+            'imagem' => 'required|file|mimes:png,jpeg'
         ];
     }
 
@@ -23,7 +26,8 @@ class Marca extends Model
         return [
             'required' => 'O campo :attribute é obrigatório',
             'nome.unique' => 'O nome da marca já existe',
-            'nome.min' => 'O nome deve ter no mínimo 3 caracteres'
+            'nome.min' => 'O nome deve ter no mínimo 3 caracteres',
+            'imagem.mimes' => 'O arquivo deve ser uma imagem do tipo png ou jpeg'
         ];
     }
 }
