@@ -28,7 +28,7 @@ class ModeloController extends Controller
         $marcas = Marca::all();
         */
         // Utilização do método via injeção do Model
-        $modelos = $this->modelo->all();
+        $modelos = $this->modelo->with('marca')->get();
         return $modelos;
     }
 
@@ -71,7 +71,7 @@ class ModeloController extends Controller
      */
     public function show($id)
     {
-        $modelo = $this->modelo->find($id);
+        $modelo = $this->modelo->with('marca')->find($id);
         if ($modelo === null) {
             return response()->json(['erro' => 'Recurso pesquisado não encontrado'], 404);
         }
@@ -93,9 +93,11 @@ class ModeloController extends Controller
         */
         $modelo = $this->modelo->find($id);
 
+
         if ($modelo === null) {
             return response()->json(['erro' => 'Recurso solicitado não encontrado'], 404);
         }
+
 
         if ($request->method() === 'PATCH') {
             $regrasDinamicas = array();
@@ -114,10 +116,14 @@ class ModeloController extends Controller
             Storage::disk('public')->delete($modelo->imagem);
         }
 
-
         $image = $request->file('imagem');
-        $imagem_urn = $image->store('imagens/modelos', 'public');
+        $imagem_urn = $request->file('imagem') !== null ? $image->store('imagens/modelos', 'public') : $modelo->imagem;
 
+        $modelo->fill($request->all());
+        $modelo->imagem = $imagem_urn;
+        $modelo->save();
+
+        /*
         $modelo->update([
             'marca_id' => $request->marca_id,
             'nome' => $request->nome,
@@ -126,7 +132,7 @@ class ModeloController extends Controller
             'lugares' => $request->lugares,
             'air_bag' => $request->air_bag,
             'abs' => $request->abs
-        ]);
+        ]); */
 
         return $modelo;
     }

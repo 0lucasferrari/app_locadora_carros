@@ -72,7 +72,7 @@ class MarcaController extends Controller
     //Utilizando injeção de Model
     public function show($id)
     {
-        $marca = $this->marca->find($id);
+        $marca = $this->marca->with('modelos')->find($id);
         if ($marca === null) {
             return response()->json(['erro' => 'Recurso pesquisado não encontrado'], 404);
         }
@@ -121,12 +121,20 @@ class MarcaController extends Controller
         }
 
         $image = $request->file('imagem');
-        $imagem_urn = $image->store('imagens/marcas', 'public');
+        $imagem_urn = $request->file('imagem') !== null ? $image->store('imagens/marcas', 'public') : $marca->imagem;
 
+        // Essa forma de lidar com a requisição update garante que requisições com o verbo
+        // PATCH sejam implementadas corretamente.
+
+        $marca->fill($request->all());
+        $marca->imagem = $imagem_urn;
+        $marca->save();
+
+        /*
         $marca->update([
             'nome' => $request->nome,
             'imagem' => $imagem_urn
-        ]);
+        ]);*/
 
         return $marca;
     }
