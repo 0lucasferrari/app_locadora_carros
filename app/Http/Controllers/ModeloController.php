@@ -116,7 +116,7 @@ class ModeloController extends Controller
 
 
         $image = $request->file('imagem');
-        $imagem_urn = $image->store('imagens', 'public');
+        $imagem_urn = $image->store('imagens/modelos', 'public');
 
         $modelo->update([
             'marca_id' => $request->marca_id,
@@ -137,7 +137,7 @@ class ModeloController extends Controller
      * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Modelo $id)
+    public function destroy($id)
     {
         $modelo = $this->modelo->find($id);
 
@@ -149,6 +149,6 @@ class ModeloController extends Controller
         Storage::disk('public')->delete($modelo->imagem);
 
         $modelo->delete();
-        return ['message' => 'O modelo foi removida com sucesso.'];
+        return ['message' => 'O modelo foi removido com sucesso.'];
     }
 }

@@ -49,7 +49,7 @@ class MarcaController extends Controller
         $request->validate($this->marca->rules(), $this->marca->feedback());
 
         $image = $request->file('imagem');
-        $imagem_urn = $image->store('imagens', 'public');
+        $imagem_urn = $image->store('imagens/marcas', 'public');
 
         $marca = $this->marca->create([
             'nome' => $request->nome,
@@ -120,9 +120,8 @@ class MarcaController extends Controller
             Storage::disk('public')->delete($marca->imagem);
         }
 
-
         $image = $request->file('imagem');
-        $imagem_urn = $image->store('imagens', 'public');
+        $imagem_urn = $image->store('imagens/marcas', 'public');
 
         $marca->update([
             'nome' => $request->nome,
