@@ -21,14 +21,23 @@ class ModeloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         /*
         Utilização por método estático
         $marcas = Marca::all();
         */
         // Utilização do método via injeção do Model
-        $modelos = $this->modelo->with('marca')->get();
+
+        $modelos = array();
+
+        if ($request->has('atributos')) {
+            $atributos = $request->atributos;
+            $modelos = $this->modelo->selectRaw($atributos)->with('marca')->get();
+        } else {
+            $modelos = $this->modelo->with('marca')->get();
+        }
+
         return $modelos;
     }
 
