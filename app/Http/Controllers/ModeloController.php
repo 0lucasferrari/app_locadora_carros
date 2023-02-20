@@ -41,7 +41,7 @@ class ModeloController extends Controller
         if ($request->has('filtro')) {
             $filtros = explode(';', $request->filtro);
 
-            foreach ($filtros as $key => $condicao) {
+            foreach ($filtros as $condicao) {
                 $c = explode(':', $condicao);
                 $modelos = $modelos->where($c[0], $c[1], $c[2]);
             }
