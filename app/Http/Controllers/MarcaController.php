@@ -24,7 +24,6 @@ class MarcaController extends Controller
      */
     public function index(Request $request)
     {
-
         $marcaRepository = new MarcaRepository($this->marca);
 
         /*
@@ -33,7 +32,7 @@ class MarcaController extends Controller
         */
         // Utilização do método via injeção do Model
 
-        $marcas = array();
+        // $marcas = array();
 
         if ($request->has('atributos_modelos')) {
             $atributos_modelos = 'modelos:id,' . $request->atributos_modelos;
