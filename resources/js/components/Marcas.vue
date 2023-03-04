@@ -2,11 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
+                <!-- Início do card de busca -->
+                <div class="card mb-3">
                     <div class="card-header">Busca de marcas</div>
 
                     <div class="card-body">
-                        
+
                         <div class="row mb-3">
                             <input-container-component titulo="ID" id="inputId">
                                 <div class="col-sm-10">
@@ -30,6 +31,27 @@
                     </div>
 
                 </div>
+                <!-- Fim do card de busca -->
+
+                <!-- Início do card de listaagem de marcas -->
+                <div class="card">
+                    <div class="card-header">Relação de marcas</div>
+
+                    <div class="card-body">
+                        <table-component>
+
+                        </table-component>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary float-end">Adicionar</button>
+                    </div>
+
+                </div>
+                <!-- Fim do card de listaagem de marcas -->
+
+
+
             </div>
         </div>
     </div>
