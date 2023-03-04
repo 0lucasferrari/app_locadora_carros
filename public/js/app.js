@@ -5599,9 +5599,46 @@ var staticRenderFns = [function () {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("Marcas")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Busca de marcas")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("p", [_vm._v("Vamos manipular os registros de marcas por aqui.")])])])])])]);
+  }, [_c("div", {
+    staticClass: "row mb-3"
+  }, [_c("label", {
+    staticClass: "col-sm-2 col-form-label",
+    attrs: {
+      "for": "inputId"
+    }
+  }, [_vm._v("ID")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-10"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      id: "inputId"
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "row mb-3"
+  }, [_c("label", {
+    staticClass: "col-sm-2 col-form-label",
+    attrs: {
+      "for": "inputNome"
+    }
+  }, [_vm._v("Nome")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-10"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputNome"
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "card-footer"
+  }, [_c("button", {
+    staticClass: "btn btn-primary float-end",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Pesquisar")])])])])])]);
 }];
 render._withStripped = true;
 
