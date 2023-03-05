@@ -5769,7 +5769,59 @@ var render = function render() {
     attrs: {
       id: "modalMarca",
       titulo: "Adicionar marca"
-    }
+    },
+    scopedSlots: _vm._u([{
+      key: "conteudo",
+      fn: function fn() {
+        return [_c("div", {
+          staticClass: "form-group"
+        }, [_c("input-container-component", {
+          attrs: {
+            titulo: "Nome da marca",
+            id: "novoNome"
+          }
+        }, [_c("div", {
+          staticClass: "col-sm-10"
+        }, [_c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "novoNome"
+          }
+        })])]), _vm._v(" "), _c("input-container-component", {
+          attrs: {
+            titulo: "Imagem",
+            id: "novoImagem"
+          }
+        }, [_c("div", {
+          staticClass: "col-sm-10"
+        }, [_c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "file",
+            id: "novoImagem"
+          }
+        })])])], 1)];
+      },
+      proxy: true
+    }, {
+      key: "rodape",
+      fn: function fn() {
+        return [_c("button", {
+          staticClass: "btn btn-secondary",
+          attrs: {
+            type: "button",
+            "data-bs-dismiss": "modal"
+          }
+        }, [_vm._v("Fechar")]), _vm._v(" "), _c("button", {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button"
+          }
+        }, [_vm._v("Salvar")])];
+      },
+      proxy: true
+    }])
   })], 1)]);
 };
 var staticRenderFns = [];
@@ -5821,26 +5873,11 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "modal-body"
-  }, [_vm._v("\n                ...\n            ")]), _vm._v(" "), _vm._m(0)])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
+  }, [_vm._t("conteudo")], 2), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
-  }, [_c("button", {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      type: "button",
-      "data-bs-dismiss": "modal"
-    }
-  }, [_vm._v("Fechar")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      type: "button"
-    }
-  }, [_vm._v("Salvar")])]);
-}];
+  }, [_vm._t("rodape")], 2)])])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
