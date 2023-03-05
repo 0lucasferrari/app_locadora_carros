@@ -5388,7 +5388,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      urlBase: 'http://127.0.0.1:8000/api/v1/marca',
+      nomeMarca: '',
+      arquivoImagem: []
+    };
+  },
+  methods: {
+    carregarImagem: function carregarImagem(e) {
+      this.arquivoImagem = e.target.files;
+    },
+    salvar: function salvar() {
+      var formData = new FormData();
+      formData.append('nome', this.nomeMarca);
+      formData.append('imagem', this.arquivoImagem[0]);
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
+        }
+      };
+      axios.post(this.urlBase, formData, config).then(function (response) {
+        return console.log(response);
+      })["catch"](function (errors) {
+        return console.log(errors);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -5783,10 +5812,25 @@ var render = function render() {
         }, [_c("div", {
           staticClass: "col-sm-10"
         }, [_c("input", {
+          directives: [{
+            name: "model",
+            rawName: "v-model",
+            value: _vm.nomeMarca,
+            expression: "nomeMarca"
+          }],
           staticClass: "form-control",
           attrs: {
             type: "text",
             id: "novoNome"
+          },
+          domProps: {
+            value: _vm.nomeMarca
+          },
+          on: {
+            input: function input($event) {
+              if ($event.target.composing) return;
+              _vm.nomeMarca = $event.target.value;
+            }
           }
         })])]), _vm._v(" "), _c("input-container-component", {
           attrs: {
@@ -5800,6 +5844,11 @@ var render = function render() {
           attrs: {
             type: "file",
             id: "novoImagem"
+          },
+          on: {
+            change: function change($event) {
+              return _vm.carregarImagem($event);
+            }
           }
         })])])], 1)];
       },
@@ -5817,6 +5866,11 @@ var render = function render() {
           staticClass: "btn btn-primary",
           attrs: {
             type: "button"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.salvar();
+            }
           }
         }, [_vm._v("Salvar")])];
       },

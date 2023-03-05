@@ -46,20 +46,20 @@
                     <div class="form-group">
                         <input-container-component titulo="Nome da marca" id="novoNome">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="novoNome">
+                                <input type="text" class="form-control" id="novoNome" v-model="nomeMarca">
                             </div>
                         </input-container-component>
 
                         <input-container-component titulo="Imagem" id="novoImagem">
                             <div class="col-sm-10">
-                                <input type="file" class="form-control" id="novoImagem">
+                                <input type="file" class="form-control" id="novoImagem" @change="carregarImagem($event)">
                             </div>
                         </input-container-component>
                     </div>
                 </template>
                 <template v-slot:rodape>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                 </template>
             </modal-component>
             
@@ -68,7 +68,36 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+        data() {
+            return {
+                urlBase: 'http://127.0.0.1:8000/api/v1/marca',
+                nomeMarca: '',
+                arquivoImagem: []
+            }
+        },
+        methods: {
+            carregarImagem(e) {
+                this.arquivoImagem = e.target.files
+            },
+            salvar() {
+                let formData = new FormData();
+                formData.append('nome', this.nomeMarca)
+                formData.append('imagem', this.arquivoImagem[0])
+
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json'
+                    }
+                }
+
+                axios.post(this.urlBase, formData, config)
+                    .then(response => console.log(response))
+                    .catch(errors => console.log(errors))
+            }
+        }
+    }
 </script>
 
 
