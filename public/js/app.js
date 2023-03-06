@@ -5389,6 +5389,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  computed: {
+    token: function token() {
+      return 'Bearer ' + document.cookie.split(';').find(function (index) {
+        return index.includes('token=');
+      }).split('=')[1];
+    }
+  },
   data: function data() {
     return {
       urlBase: 'http://127.0.0.1:8000/api/v1/marca',
@@ -5407,7 +5414,8 @@ __webpack_require__.r(__webpack_exports__);
       var config = {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Authorization': this.token
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {

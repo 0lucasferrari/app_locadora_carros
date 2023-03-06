@@ -69,6 +69,11 @@
 
 <script>
     export default {
+        computed: {
+            token() {
+                return 'Bearer ' + document.cookie.split(';').find(index => index.includes('token=')).split('=')[1]
+            }
+        },
         data() {
             return {
                 urlBase: 'http://127.0.0.1:8000/api/v1/marca',
@@ -88,7 +93,8 @@
                 let config = {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Authorization': this.token
                     }
                 }
 
