@@ -68,9 +68,6 @@
                     <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                 </template>
             </modal-component>
-
-            <button type="button" @click="carregarLista()">Teste</button>
-            
         </div>
     </div>
 </template>
@@ -94,7 +91,16 @@
         },
         methods: {
             carregarLista() {
-                axios.get(this.urlBase).then(response => {
+
+                let config = {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+
+                axios.get(this.urlBase, config)
+                .then(response => {
                     this.marcas = response.data
                 })
                 .catch(errors => {
