@@ -29,7 +29,9 @@
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
                         <div class="card-body">
-                            <table-component>
+                            <table-component :dados="marcas"
+                            :titulos="['ID', 'Nome', 'Imagem']"
+                            >
 
                             </table-component>
                         </div>        
