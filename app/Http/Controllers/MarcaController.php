@@ -52,7 +52,7 @@ class MarcaController extends Controller
         }
 
         // $marcas = $this->marca->all();
-        return $marcaRepository->getResultado();
+        return $marcaRepository->getResultadoPaginado(3);
     }
 
 

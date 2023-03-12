@@ -31,7 +31,7 @@
                 let campos = Object.keys(this.titulos)
                 let dadosFiltrados = []
 
-                this.dados.map((item) => {
+                this.dados?.map((item) => {
                     let itemFiltrado = {}
 
                     campos.forEach(campo => {
