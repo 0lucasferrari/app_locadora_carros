@@ -37,7 +37,6 @@
                     campos.forEach(campo => {
                         itemFiltrado[campo] = item[campo]
                     })
-
                     
                     dadosFiltrados.push(itemFiltrado)
                 })

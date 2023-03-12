@@ -42,7 +42,24 @@
                         </div>        
                     </template>
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                        <div class="row">
+                            <div class="col-10">
+                                <paginate-component>
+                                    <li 
+                                        v-for="l, key in marcas.links" 
+                                        :key="key"
+                                        @click="paginacao(l)"
+                                        :class="l.active ? 'page-item active' : 'page-item'"
+                                        >
+                                            <a class="page-link" v-html="l.label">
+                                            </a>
+                                    </li>
+                                </paginate-component>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                            </div>
+                        </div>
                     </template>
                 </card-component>
             </div>
@@ -97,15 +114,17 @@
             }
         },
         methods: {
+            paginacao(l) {
+                this.urlBase = l.url
+                this.carregarLista()
+            },
             carregarLista() {
-
                 let config = {
                     headers: {
                         'Accept': 'application/json',
                         'Authorization': this.token
                     }
                 }
-
                 axios.get(this.urlBase, config)
                 .then(response => {
                     this.marcas = response.data
