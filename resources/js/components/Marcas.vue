@@ -8,7 +8,7 @@
                         <div class="row mb-3">
                             <input-container-component titulo="ID" id="inputId">
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inputId">
+                                    <input type="number" class="form-control" id="inputId" v-model="busca.id">
                                 </div>
                             </input-container-component>
                         </div>
@@ -16,13 +16,13 @@
                         <div class="row mb-3">
                             <input-container-component titulo="Nome da marca" id="inputNome">
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputNome">
+                                    <input type="text" class="form-control" id="inputNome" v-model="busca.nome">
                                 </div>
                             </input-container-component>
                         </div>
                     </template>
                     <template v-slot:rodape>
-                        <button type="submit" class="btn btn-primary float-end">Pesquisar</button>
+                        <button type="submit" class="btn btn-primary float-end" @click="pesquisar()">Pesquisar</button>
                     </template>
                 </card-component>
 
@@ -110,10 +110,26 @@
                 arquivoImagem: [],
                 transacaoStatus: null,
                 transacaoDetalhes: {},
-                marcas: []
+                marcas: [],
+                busca: {
+                    id: '',
+                    nome: ''
+                }
             }
         },
         methods: {
+            pesquisar() {
+                let filtro = ''
+                for(let chave in this.busca) {
+                    if(this.busca[chave]) {
+                        if(filtro != '') {
+                            filtro += ';'
+                        }
+                        filtro += chave + ':like:' + this.busca[chave]
+                    }
+                }
+                console.log(filtro)
+            },
             paginacao(l) {
                 this.urlBase = l.url
                 this.carregarLista()
