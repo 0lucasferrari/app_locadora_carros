@@ -106,6 +106,8 @@
         data() {
             return {
                 urlBase: 'http://127.0.0.1:8000/api/v1/marca',
+                urlPaginacao: '',
+                urlFiltro: '',
                 nomeMarca: null,
                 arquivoImagem: [],
                 transacaoStatus: null,
@@ -128,20 +130,28 @@
                         filtro += chave + ':like:' + this.busca[chave]
                     }
                 }
-                console.log(filtro)
+                if (filtro !== '') {
+                    this.urlPaginacao = 'page=1'
+                    this.urlFiltro = '&filtro=' + filtro
+                } else {
+                    this.urlFiltro = null
+                }
+                this.carregarLista()
             },
             paginacao(l) {
-                this.urlBase = l.url
+                this.urlPaginacao = l.url.split('?')[1]
                 this.carregarLista()
             },
             carregarLista() {
+                let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
+
                 let config = {
                     headers: {
                         'Accept': 'application/json',
                         'Authorization': this.token
                     }
                 }
-                axios.get(this.urlBase, config)
+                axios.get(url, config)
                 .then(response => {
                     this.marcas = response.data
                 })
