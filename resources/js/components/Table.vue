@@ -20,7 +20,7 @@
                     </span>
                 </td>
                 <td>
-                    <button v-if="visualizar" class="btn btn-outline-primary btn-sm">
+                    <button v-if="visualizar" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarcaVisualizar">
                         Visualizar
                     </button>
                     <button v-if="atualizar" class="btn btn-outline-primary btn-sm">

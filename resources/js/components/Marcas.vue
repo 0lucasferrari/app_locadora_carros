@@ -68,7 +68,7 @@
                 </card-component>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal de inclusão de marca -->
             <modal-component id="modalMarca" titulo="Adicionar marca">
 
                 <template v-slot:alertas>
@@ -91,11 +91,30 @@
                         </input-container-component>
                     </div>
                 </template>
+
                 <template v-slot:rodape>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                 </template>
             </modal-component>
+            <!-- Modal de inclusão de marca -->
+
+            <!-- Modal de visualização de marca -->
+            <modal-component id="modalMarcaVisualizar" titulo="Visualizar marca">
+                <template v-slot:alertas>
+                </template>
+
+                <template v-slot:conteudo>
+                    Teste
+                </template>
+
+                <template v-slot:rodape>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </template>
+            </modal-component>
+            <!-- Modal de visualização de marca -->
+
+
         </div>
     </div>
 </template>
