@@ -25,7 +25,6 @@
                         <button type="submit" class="btn btn-primary float-end" @click="pesquisar()">Pesquisar</button>
                     </template>
                 </card-component>
-
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
                         <div class="card-body">
