@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th scope="col" v-for="titulo in titulos" :key="titulo.id" class="text-uppercase">{{ titulo.titulo }}</th>
-                <th v-if="visualizar || atualizar || remover"></th>
+                <th v-if="visualizar.visivel || atualizar || remover"></th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,8 @@
                         <img :src="'/storage/' + valor" width="30" height="30">
                     </span>
                 </td>
-                <td>
-                    <button v-if="visualizar" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarcaVisualizar">
+                <td v-if="visualizar.visivel || atualizar || remover">
+                    <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataToggle" :data-bs-target="visualizar.dataTarget">
                         Visualizar
                     </button>
                     <button v-if="atualizar" class="btn btn-outline-primary btn-sm">

@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <table-component 
                             :dados="marcas.data"
-                            :visualizar="true"
+                            :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
                             :atualizar="true"
                             :remover="true"
                             :titulos="{
