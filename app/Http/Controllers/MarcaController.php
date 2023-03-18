@@ -181,10 +181,11 @@ class MarcaController extends Controller
             return response()->json(['erro' => 'Recurso solicitado não encontrado'], 404);
         }
 
+        $marca->delete();
+
         // Remove o arquivo de imagem associado.
         Storage::disk('public')->delete($marca->imagem);
 
-        $marca->delete();
         return ['message' => 'A marca foi removida com sucesso.'];
     }
 }
