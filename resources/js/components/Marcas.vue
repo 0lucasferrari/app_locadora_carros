@@ -32,7 +32,7 @@
                             :dados="marcas.data"
                             :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
                             :atualizar="true"
-                            :remover="true"
+                            :remover="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaRemover' }"
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'texto'},
                                 nome: {titulo: 'Nome', tipo: 'texto'},
@@ -127,6 +127,28 @@
             </modal-component>
             <!-- Modal de visualização de marca -->
 
+            <!-- Modal de remoção de marca -->
+            <modal-component id="modalMarcaRemover" titulo="Remover marca">
+                <template v-slot:alertas>
+                </template>
+
+                <template v-slot:conteudo>
+
+                    <input-container-component titulo="ID">
+                        <input type="text" class="form-control" :value="$store.state.item.id" disabled>
+                    </input-container-component>
+
+                    <input-container-component titulo="Nome da marca">
+                        <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                    </input-container-component>
+
+                </template>
+
+                <template v-slot:rodape>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </template>
+            </modal-component>
+            <!-- Modal de remoção de marca -->
 
         </div>
     </div>
