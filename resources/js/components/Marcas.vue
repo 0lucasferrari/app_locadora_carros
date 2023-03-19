@@ -130,10 +130,11 @@
             <!-- Modal de remoção de marca -->
             <modal-component id="modalMarcaRemover" titulo="Remover marca">
                 <template v-slot:alertas>
+                    <alert-component tipo="success" titulo="Transação realizada com sucesso" :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                    <alert-component tipo="danger" titulo="Erro na transação " :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'erro'"></alert-component>
                 </template>
 
-                <template v-slot:conteudo>
-
+                <template v-slot:conteudo v-if="$store.state.transacao.status != 'sucesso'">
                     <input-container-component titulo="ID">
                         <input type="text" class="form-control" :value="$store.state.item.id" disabled>
                     </input-container-component>
@@ -141,13 +142,11 @@
                     <input-container-component titulo="Nome da marca">
                         <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
                     </input-container-component>
-
                 </template>
 
                 <template v-slot:rodape>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="remover()">Remover</button>
-
+                    <button type="button" class="btn btn-danger" @click="remover()" v-if="$store.state.transacao.status != 'sucesso'">Remover</button>
                 </template>
             </modal-component>
             <!-- Modal de remoção de marca -->
@@ -188,7 +187,8 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'delete')
-                
+
+
                 let config = {
                     headers: {
                         'Accept': 'application/json',
@@ -196,12 +196,19 @@
                     }
                 }
 
+                
                 axios.post(url, formData, config)
                 .then(response => {
                     console.log('Registro removido com sucesso', response)
+                    this.$store.state.transacao.mensagem = response.data.message
+                    this.$store.state.transacao.status = 'sucesso'
                     this.carregarLista()
                     })
-                .catch(errors => console.log('Houve um erro na tentativa de remoção do registro', errors.data))
+                .catch(errors => {
+                    this.$store.state.transacao.mensagem = errors.response.data.message
+                    this.$store.state.transacao.status = 'erro'
+                    console.log('Houve um erro na tentativa de remoção do registro', errors.response.data.message)
+                    })
 
             },
             pesquisar() {
