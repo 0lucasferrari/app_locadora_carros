@@ -31,7 +31,7 @@
                             <table-component 
                             :dados="marcas.data"
                             :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
-                            :atualizar="true"
+                            :atualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaAtualizar' }"
                             :remover="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaRemover' }"
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'texto'},
@@ -151,6 +151,36 @@
             </modal-component>
             <!-- Modal de remoção de marca -->
 
+            <!-- Modal de atualização de marca -->
+            <modal-component id="modalMarcaAtualizar" titulo="Atualizar marca">
+
+                <template v-slot:alertas>
+                </template>
+
+                <template v-slot:conteudo>
+                    <div class="form-group">
+                        <input-container-component titulo="Nome da marca" id="atualizarNome">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="atualizarNome" v-model="nomeMarca">
+                            </div>
+                        </input-container-component>
+
+                        <input-container-component titulo="Imagem" id="atualizarImagem">
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" id="atualizarImagem" @change="carregarImagem($event)">
+                            </div>
+                        </input-container-component>
+                    </div>
+                </template>
+
+                <template v-slot:rodape>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" @click="atualizar()">Atualizar</button>
+                </template>
+            </modal-component>
+            <!-- Modal de atualização de marca -->
+
+
         </div>
     </div>
 </template>
@@ -179,6 +209,9 @@
             }
         },
         methods: {
+            atualizar () {
+
+            },
             remover() {
                 let confirmacao = confirm('Tem certeza que deseja remover esse registro?')
                 if (!confirmacao) return false;
