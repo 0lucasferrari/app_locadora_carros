@@ -171,9 +171,7 @@
                             </div>
                         </input-container-component>
                     </div>
-                {{ $store.state.item }}
                 </template>
-
 
                 <template v-slot:rodape>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -215,7 +213,9 @@
                 let formData = new FormData();
                 formData.append('_method', 'patch')
                 formData.append('nome', this.$store.state.item.nome)
-                formData.append('imagem', this.arquivoImagem[0])
+                if (this.arquivoImagem[0]) {
+                    formData.append('imagem', this.arquivoImagem[0])
+                }
                 let url = this.urlBase + '/' + this.$store.state.item.id
                 let config = {
                     headers: {
@@ -227,7 +227,9 @@
                 
                 axios.post(url, formData, config)
                     .then(response => {
-                        console.log(response)  
+                        console.log(response)
+                        atualizarImagem.value = ''
+                        this.carregarLista()
                     })
                     .catch(errors => {
                         console.log(errors)
