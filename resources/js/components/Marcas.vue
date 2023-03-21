@@ -161,7 +161,7 @@
                     <div class="form-group">
                         <input-container-component titulo="Nome da marca" id="atualizarNome">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="atualizarNome" v-model="nomeMarca">
+                                <input type="text" class="form-control" id="atualizarNome" v-model="$store.state.item.nome">
                             </div>
                         </input-container-component>
 
@@ -171,7 +171,9 @@
                             </div>
                         </input-container-component>
                     </div>
+                {{ $store.state.item }}
                 </template>
+
 
                 <template v-slot:rodape>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -210,7 +212,26 @@
         },
         methods: {
             atualizar () {
-
+                let formData = new FormData();
+                formData.append('_method', 'patch')
+                formData.append('nome', this.$store.state.item.nome)
+                formData.append('imagem', this.arquivoImagem[0])
+                let url = this.urlBase + '/' + this.$store.state.item.id
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+                
+                axios.post(url, formData, config)
+                    .then(response => {
+                        console.log(response)  
+                    })
+                    .catch(errors => {
+                        console.log(errors)
+                    })
             },
             remover() {
                 let confirmacao = confirm('Tem certeza que deseja remover esse registro?')
@@ -220,7 +241,6 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'delete')
-
 
                 let config = {
                     headers: {
