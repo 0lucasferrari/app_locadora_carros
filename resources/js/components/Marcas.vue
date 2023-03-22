@@ -155,6 +155,8 @@
             <modal-component id="modalMarcaAtualizar" titulo="Atualizar marca">
 
                 <template v-slot:alertas>
+                    <alert-component tipo="success" :detalhes="$store.state.transacao" titulo="Atualização realizada com sucesso" v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                    <alert-component tipo="danger" :detalhes="$store.state.transacao" titulo="Erro ao tentar atualizar a marca" v-if="$store.state.transacao.status == 'erro'"></alert-component>
                 </template>
 
                 <template v-slot:conteudo>
@@ -227,12 +229,15 @@
                 
                 axios.post(url, formData, config)
                     .then(response => {
-                        console.log(response)
+                        this.$store.state.transacao.mensagem = 'Registro de marca atualizado com sucesso'
+                        this.$store.state.transacao.status = 'sucesso'
                         atualizarImagem.value = ''
                         this.carregarLista()
                     })
                     .catch(errors => {
-                        console.log(errors)
+                        this.$store.state.transacao.mensagem = errors.response.data.message
+                        this.$store.state.transacao.dados = errors.response.data.errors
+                        this.$store.state.transacao.status = 'erro'
                     })
             },
             remover() {
@@ -250,11 +255,9 @@
                         'Authorization': this.token
                     }
                 }
-
                 
                 axios.post(url, formData, config)
                 .then(response => {
-                    console.log('Registro removido com sucesso', response)
                     this.$store.state.transacao.mensagem = response.data.message
                     this.$store.state.transacao.status = 'sucesso'
                     this.carregarLista()
@@ -262,7 +265,6 @@
                 .catch(errors => {
                     this.$store.state.transacao.mensagem = errors.response.data.message
                     this.$store.state.transacao.status = 'erro'
-                    console.log('Houve um erro na tentativa de remoção do registro', errors.response.data.message)
                     })
 
             },
