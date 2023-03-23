@@ -47,6 +47,16 @@ Vue.component('input-container-component', require('./components/inputContainer.
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.filter('formataDataTempo', function (dataTempo) {
+    if (!dataTempo) return null
+    dataTempo = dataTempo.split('T')
+    let data = dataTempo[0]
+    let tempo = dataTempo[1]
+    data = data.split('-').reverse().join('/')
+    tempo = tempo.split('.')[0]
+    return `${data} ${tempo}`
+})
+
 const app = new Vue({
     el: '#app',
     store

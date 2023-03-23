@@ -13,7 +13,7 @@
                         {{ valor }}
                     </span>
                     <span v-if="titulos[chaveValor].tipo === 'data'">
-                        {{ valor }}
+                        {{ valor | formataDataTempo }}
                     </span>
                     <span v-if="titulos[chaveValor].tipo === 'imagem'">
                         <img :src="'/storage/' + valor" width="30" height="30">
