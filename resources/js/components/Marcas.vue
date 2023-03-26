@@ -275,6 +275,7 @@
                 this.carregarLista()
             },
             paginacao(l) {
+                if (!l.url) return
                 this.urlPaginacao = l.url.split('?')[1]
                 this.carregarLista()
             },
